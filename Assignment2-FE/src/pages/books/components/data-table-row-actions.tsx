@@ -1,6 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Row } from '@tanstack/react-table'
-import { useNavigate } from "react-router-dom";
+
 import { Button } from '@/components/custom/button'
 import {
   DropdownMenu,
@@ -11,11 +11,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
-import { authorSchema } from '../data/schema'
-import UpdateModal from './update-modal';
-import { useState } from 'react';
-import { authorServices } from '@/services/author.service';
-
+import { bookSchema } from '../data/schema'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -25,18 +21,10 @@ export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const publisher = authorSchema.parse(row.original)
-  const navigate = useNavigate();
-  const handleDelete = async (id : string) => {
-    const res = await authorServices.deleteAuthor(id)
-    navigate(0)
-    console.log(res)
-  }
-
-  const [openEditModal, setOpenEditModal] = useState(false)
+  const book = bookSchema.parse(row.original)
+  console.log(book)
 
   return (
-    <>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
@@ -48,39 +36,28 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
-        <DropdownMenuItem
-        onClick={() => setOpenEditModal(true)}
-        >Edit</DropdownMenuItem>
+        <DropdownMenuItem>Edit</DropdownMenuItem>
         {/* <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem> */}
-        {/* <DropdownMenuSeparator />
-        <DropdownMenuItem>View {publisher.name}</DropdownMenuItem> */}
+        {/* <DropdownMenuSeparator /> */}
         {/* <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={publisher.name}> */}
-        {/* {labels.map((label) => (
+            <DropdownMenuRadioGroup value={task.label}>
+              {labels.map((label) => (
                 <DropdownMenuRadioItem key={label.value} value={label.value}>
                   {label.label}
                 </DropdownMenuRadioItem>
-              ))} */}
-        {/* </DropdownMenuRadioGroup>
+              ))}
+            </DropdownMenuRadioGroup>
           </DropdownMenuSubContent>
         </DropdownMenuSub> */}
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={
-          () => handleDelete(String(publisher.id))
-        }>
+        <DropdownMenuItem>
           Delete
           <DropdownMenuShortcut>⌫</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-    <UpdateModal isOpen={openEditModal} 
-    id = {String(publisher.id)}
-    onClose={() => {
-      setOpenEditModal(false)
-    }} />
-    </>
   )
 }

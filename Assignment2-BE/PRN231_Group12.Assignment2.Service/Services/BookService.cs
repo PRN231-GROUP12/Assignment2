@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PRN231_Group12.Assignment2.Repo;
+using PRN231_Group12.Assignment2.Repo.Entity;
 using PRN231_Group12.Assignment2.Repo.Interfaces;
 using PRN231_Group12.Assignment2.Service.Extensions;
 using PRN231_Group12.Assignment2.Service.Interfaces;

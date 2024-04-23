@@ -10,11 +10,11 @@ namespace PRN231_Group12.Assignment2.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorController : ControllerBase
+    public class AuthorsController : ControllerBase
     {
         private readonly IAuthorService _service;
 
-        public AuthorController(IAuthorService service)
+        public AuthorsController(IAuthorService service)
         {
             _service = service;
         }

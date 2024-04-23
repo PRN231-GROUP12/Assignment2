@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PRN231_Group12.Assignment2.Repo
+﻿namespace PRN231_Group12.Assignment2.Repo.Entity
 {
     public partial class Publisher
     {

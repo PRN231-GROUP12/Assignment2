@@ -1,6 +1,7 @@
 import { Button } from '@/components/custom/button'
 import { Input } from '@/components/ui/input'
-import { publisherServices } from '@/services/publisher.service';
+import { authorServices } from '@/services/author.service';
+import { UpdateAuthor } from '@/types/author';
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
@@ -16,22 +17,30 @@ function UpdateModal({
   id: string
 }) {
 
-  const [name, setName] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
   const [city, setCity] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [state, setState] = useState<string>('');
-  const [country, setCountry] = useState<string>('');
+  const [zip, setZip] = useState<string>('');
   const navigate = useNavigate();
-  const handleUpdatePublisher = async (
+  const handleUpdateAuthor= async (
     id : string
   ) => {
     
-    const data = {
-      name: name,
-      city: city,
-      state: state,
-      country: country
+    const data: UpdateAuthor = {
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        address: address,
+        email: email,
+        city: city,
+        state: state,
+        zip: zip
     }
-    const res = await publisherServices.updatePublisher(id, data)
+    const res = await authorServices.updateAuthor(id, data)
     if (res.data) {
       onClose()
       navigate(0)
@@ -40,17 +49,21 @@ function UpdateModal({
   }
 
   useEffect(() => {
-    const handlePublisherDetail = async (id: string) => {
-      const res = await publisherServices.getPublisherDetail(id)
+    const handleAuthorDetail = async (id: string) => {
+      const res = await authorServices.getAuthorDetail(id)
       if (res.data) {
         console.log(res.data)
-        setName(res.data.name)
+        setFirstName(res.data.firstName)
+        setLastName(res.data.lastName)
+        setPhone(res.data.phone)
         setCity(res.data.city)
+        setAddress(res.data.address)
         setState(res.data.state)
-        setCountry(res.data.country)
+        setZip(res.data.zip)
+        setEmail(res.data.email)
       }
     }
-    handlePublisherDetail(id)
+    handleAuthorDetail(id)
   }, [id])
 
   return (
@@ -82,9 +95,11 @@ function UpdateModal({
               >
                 <Dialog.Panel className="w-full transform overflow-hidden rounded-lg border border-[#49494d] bg-[#FFF] p-6 text-left align-middle shadow-xl transition-all lg:w-[692px]">
                   <div className='flex flex-col gap-2 p-2'>
-                    <h1 className='font-bold text-lg'>Update Publisher</h1>
-                    <Input placeholder='Name' value={name} onChange={
-                      (e) => setName(e.target.value)
+                    <Input placeholder='First Name' value={firstName} onChange={
+                      (e) => setFirstName(e.target.value)
+                    }/>
+                    <Input placeholder='Last Name' value={lastName} onChange={
+                      (e) => setLastName(e.target.value)
                     }/>
                     <Input placeholder='City' value={city} onChange={
                       (e) => setCity(e.target.value)
@@ -92,12 +107,21 @@ function UpdateModal({
                     <Input placeholder='State' value={state} onChange={
                       (e) => setState(e.target.value)
                     }/>
-                    <Input placeholder='Country' value={country} onChange={
-                      (e) => setCountry(e.target.value)
+                    <Input placeholder='ZIP Code' value={zip} onChange={
+                      (e) => setZip(e.target.value)
+                    }/>
+                    <Input placeholder='Address' value={address} onChange={
+                      (e) => setAddress(e.target.value)
+                    }/>
+                    <Input placeholder='Phone Number' value={phone} onChange={
+                      (e) => setPhone(e.target.value)
+                    }/>
+                    <Input placeholder='Email' value={email} onChange={
+                      (e) => setEmail(e.target.value)
                     }/>
                     <Button  variant='outline' 
                     onClick={() => 
-                      handleUpdatePublisher(id)
+                      handleUpdateAuthor(id)
                     }>
                       Submit 
                     </Button>
@@ -113,4 +137,3 @@ function UpdateModal({
 }
 
 export default UpdateModal
-

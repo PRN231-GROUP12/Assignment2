@@ -32,16 +32,16 @@ export const columns: ColumnDef<Publisher>[] = [
   //   enableHiding: false,
   // },
   {
-    accessorKey: 'id',
+    accessorKey: 'publisherId',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='PublisherId' />
     ),
-    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
+    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('publisherId')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: 'name',
+    accessorKey: 'publisherName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='PublisherName' />
     ),
@@ -51,7 +51,7 @@ export const columns: ColumnDef<Publisher>[] = [
         <div className='flex space-x-2'>
           {<Badge variant='outline'>{country}</Badge>}
           <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('name')}
+            {row.getValue('publisherName')}
           </span>
         </div>
       )

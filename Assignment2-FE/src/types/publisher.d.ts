@@ -1,6 +1,6 @@
 export type Publisher = {
-  name : string;
-  id : string;
+  publisherName : string;
+  publisherId : string;
   state : string;
   country : string;
 }

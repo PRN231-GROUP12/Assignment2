@@ -4,18 +4,18 @@ import axiosClient from './axios-clients'
 
 export const publisherServices = {
   getPublishers: async () => {
-    return await axiosClient.get('/publisher')
+    return await axiosClient.get('/publishers?sortBy=PublisherName&sortOrder=ASC')
   },
   getPublisherDetail: async (id: string) => {
-    return await axiosClient.get(`/publisher/${id}`)
+    return await axiosClient.get(`/publishers/${id}`)
   },
   createPublisher: async (data: UpdatePublisher) => {
-    return await axiosClient.post('/publisher', data)
+    return await axiosClient.post('/publishers', data)
   },
   updatePublisher: async (id: string, data: UpdatePublisher) => {
-    return await axiosClient.put(`/publisher/${id}`, data)
+    return await axiosClient.put(`/publishers/${id}`, data)
   },
   deletePublisher: async (id: string) => {
-    return await axiosClient.delete(`/publisher/${id}`)
+    return await axiosClient.delete(`/publishers/${id}`)
   },
 }

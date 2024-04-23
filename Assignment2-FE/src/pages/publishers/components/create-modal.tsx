@@ -14,15 +14,16 @@ function CreateModal({
   onClose: () => void,
 }) {
 
-  const [name, setName] = useState<string>('');
+  const [publisherName, setName] = useState<string>('');
   const [city, setCity] = useState<string>('');
   const [state, setState] = useState<string>('');
   const [country, setCountry] = useState<string>('');
   const navigate = useNavigate();
 
   const handleCreatePublisher = async () => {
+    if(!publisherName || !city || !state || !country) return alert('Please fill all fields')
     const res = await publisherServices.createPublisher({
-      name: name,
+      publisherName: publisherName,
       city: city,
       state: state,
       country: country
@@ -63,7 +64,8 @@ function CreateModal({
               >
                 <Dialog.Panel className="w-full transform overflow-hidden rounded-lg border border-[#49494d] bg-[#FFF] p-6 text-left align-middle shadow-xl transition-all lg:w-[692px]">
                   <div className='flex flex-col gap-2 p-2'>
-                    <Input placeholder='Name' value={name} onChange={
+                    <h1 className='font-bold text-lg'>Create Publisher</h1>
+                    <Input placeholder='Name' value={publisherName} onChange={
                       (e) => setName(e.target.value)
                     } />
                     <Input placeholder='City' value={city} onChange={

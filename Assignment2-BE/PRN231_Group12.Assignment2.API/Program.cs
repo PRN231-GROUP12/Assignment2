@@ -19,6 +19,16 @@ builder.Services.AddApplicationServices();
 builder.Services.AddScoped<ExceptionMiddleware>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(CORSPolicy.Development, builder =>
+    {
+        builder.SetIsOriginAllowed(_ => true);
+        builder.AllowAnyHeader();
+        builder.AllowAnyMethod();
+        builder.AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -30,7 +40,7 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthorization(); 
-
+app.UseCors(CORSPolicy.Development);
 app.MapControllers();
 
 app.Run();
